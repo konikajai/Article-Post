@@ -8,7 +8,8 @@ import ProtectedRoute from "./components/Protected/ProtectedRoute";
 import SingleArticle from "./components/SingleArticle";
 import SignUp from "./components/SignUp";
 
-// Lazy-load the Login component
+
+
 const Login = React.lazy(() => import('./components/Login'));
 
 function App() {

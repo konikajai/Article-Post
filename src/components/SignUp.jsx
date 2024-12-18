@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -9,29 +10,31 @@ const SignUp = () => {
 
   const handleSignUp = async () => {
     try {
-      // Check if the email already exists
       const response = await axios.get(`http://localhost:5002/users?email=${email}`);
 
       if (response.data.length > 0) {
-        // If the email already exists, show an error message
         alert('Email already exists! Please use a different email.');
         return;
       }
 
-      // If email doesn't exist, proceed with sign up
+      const hashedPassword = await bcrypt.hash(password, 10);
+
       const token = `token-${email}-${Date.now()}`;
-      
+
       const newUser = {
         email,
-        password,
+        // password,
+        password : hashedPassword, 
         token,
-        savedArticles: []  // Initialize saved articles array
+        savedArticles: []
       };
 
       await axios.post("http://localhost:5002/users", newUser);
+      console.log(newUser);
+      
 
       alert('Sign Up Successful');
-      navigate('/Login'); // Redirect to login page after successful signup
+      navigate('/Login');
     } catch (error) {
       console.error('Sign Up Failed:', error);
       alert('Sign Up Failed. Please try again.');

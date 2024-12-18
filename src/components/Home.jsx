@@ -22,6 +22,48 @@ const Home = () => {
     fetchArticles();
   }, []);
 
+  // const handleSaveArticle = async (articleId) => {
+  //   try {
+  //     if (!token || !email) {
+  //       alert('You need to log in to save articles.');
+  //       navigate('/login');
+  //       return;
+  //     }
+
+  //     const userResponse = await axios.get(http://localhost:5002/users?email=${email});
+  //     const users = userResponse.data;
+
+  //     if (users.length === 0) {
+  //       alert('User not found. Please log in again.');
+  //       return;
+  //     }
+
+  //     const user = users[0];
+  //     const savedArticles = user.savedArticles || [];
+
+  //     if (!savedArticles.some(article => article.id === articleId)) {
+  //       const articleToSave = articles.find(article => article.id === articleId);
+  //       savedArticles.push(articleToSave);
+
+  //       const updateResponse = await axios.put(http://localhost:5002/users/${user.id}, {
+  //         ...user,
+  //         savedArticles,
+  //       });
+
+  //       if (updateResponse.status === 200) {
+  //         alert('Article saved successfully!');
+  //       } else {
+  //         alert('Error saving article.');
+  //       }
+  //     } else {
+  //       alert('This article is already saved.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error saving article:', error);
+  //     alert('Error saving article. Please try again.');
+  //   }
+  // };
+
   const handleSaveArticle = async (articleId) => {
     try {
       if (!token || !email) {
@@ -29,27 +71,27 @@ const Home = () => {
         navigate('/login');
         return;
       }
-
+  
       const userResponse = await axios.get(`http://localhost:5002/users?email=${email}`);
       const users = userResponse.data;
-
+  
       if (users.length === 0) {
         alert('User not found. Please log in again.');
         return;
       }
-
+  
       const user = users[0];
       const savedArticles = user.savedArticles || [];
-
-      if (!savedArticles.some(article => article.id === articleId)) {
-        const articleToSave = articles.find(article => article.id === articleId);
-        savedArticles.push(articleToSave);
-
+  
+      // Check if the article is already saved by id
+      if (!savedArticles.includes(articleId)) {
+        savedArticles.push(articleId); // Only save the article ID, not the whole object
+  
         const updateResponse = await axios.put(`http://localhost:5002/users/${user.id}`, {
           ...user,
           savedArticles,
         });
-
+  
         if (updateResponse.status === 200) {
           alert('Article saved successfully!');
         } else {
@@ -63,7 +105,7 @@ const Home = () => {
       alert('Error saving article. Please try again.');
     }
   };
-
+  
   return (
     <div>
       {token ? (
