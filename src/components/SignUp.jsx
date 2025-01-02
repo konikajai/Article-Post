@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import bcrypt from 'bcryptjs';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -17,14 +16,11 @@ const SignUp = () => {
         return;
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
-
       const token = `token-${email}-${Date.now()}`;
 
       const newUser = {
         email,
-        // password,
-        password : hashedPassword, 
+        password, 
         token,
         savedArticles: []
       };
@@ -32,10 +28,10 @@ const SignUp = () => {
       await axios.post("http://localhost:5002/users", newUser);
       console.log(newUser);
       
-
       alert('Sign Up Successful');
       navigate('/Login');
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Sign Up Failed:', error);
       alert('Sign Up Failed. Please try again.');
     }

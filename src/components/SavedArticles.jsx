@@ -25,8 +25,6 @@ const SavedArticles = () => {
           navigate('/login');
           return;
         }
-
-        // Fetch user by email to get savedArticleIds
         const userResponse = await axios.get(`http://localhost:5002/users?email=${email}`);
         const users = userResponse.data;
 
@@ -38,16 +36,16 @@ const SavedArticles = () => {
         const user = users[0];
         const savedArticleIds = user.savedArticles || [];
         console.log(savedArticleIds);
-        
+
 
         if (savedArticleIds.length > 0) {
           let articlesArray = [];
 
           for (let i = 0; i < savedArticleIds.length; i++) {
             const articleResponse = await axios.get(`http://localhost:5000/articles/${savedArticleIds[i]}`);
-            console.log(articleResponse);           
+            console.log(articleResponse);
             articlesArray.push(articleResponse.data);
-            console.log(articlesArray);         
+            console.log(articlesArray);
           }
 
           setSavedArticles(articlesArray);
@@ -70,25 +68,28 @@ const SavedArticles = () => {
         {savedArticles.length === 0 ? (
           <p>No saved articles found.</p>
         ) : (
-          <div>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              {currentPost.map((article, index) => (
-                <div key={index} style={{ margin: '10px', textAlign: 'center' }}>
-                  <div className="card" style={{ width: '23rem', height: '30rem' }}>
-                    <img src={article.image} className="card-img-top" alt="article" />
-                    <div className="card-body">
-                      <h5 className="card-title">{article.heading}</h5>
-                      <p className="card-text">{article.content}</p>
-                    </div>
-                    <div className="card-body">
-                      <a href="#" className="card-link">Read more</a>
-                      <h5>{article.date}</h5>
+          <>
+            <div className="container">
+              <div className="row gap-5">
+                {currentPost.map((article, index) => (
+                  <div key={index} className="col">
+                    <div className="card" style={{ width: '18rem', height: '28rem' }}>
+                      <img src={article.image} className="card-img-top" alt={article.heading} />
+                      <div className="card-body">
+                        <h5 className="card-title">{article.heading}</h5>
+                        <p className="card-text">{article.content}</p>
+                      </div>
+                      <div className="card-body">
+                        <a href="#" className="card-link">Read more</a>
+                        <h5>{article.date}</h5>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          </>
+
         )}
       </div>
       <div>

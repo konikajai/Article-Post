@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/Protected/ProtectedRoute";
 import SingleArticle from "./components/SingleArticle";
 import SignUp from "./components/SignUp";
-
+import DynamicButtons from "./components/DynamicButtons";
 
 
 const Login = React.lazy(() => import('./components/Login'));
@@ -27,6 +27,7 @@ function App() {
             <Route path="/SignUp" element={<SignUp />} /> 
             <Route path="/Login" element={<Login />} /> 
             <Route path="/SingleArticle/:id" element={<SingleArticle />} />
+            <Route path="/DynamicButtons" element={<DynamicButtons />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

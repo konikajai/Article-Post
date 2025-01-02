@@ -1,4 +1,34 @@
 {
   "users": [
+    {
+      "id": "5550",
+      "email": "konikajain1572001@gmail.com",
+      "password": "1234",
+      "token": "token-konikajain1572001@gmail.com-1734543630690",
+      "savedArticles": [
+        "2"
+      ]
+    },
+    {
+      "id": "2622",
+      "email": "ko",
+      "password": "ko",
+      "token": "token-ko-1734549603629",
+      "savedArticles": [
+        "1",
+        "4",
+        "3",
+        "2",
+        "5",
+        "6"
+      ]
+    },
+    {
+      "id": "b5d1",
+      "email": "kon",
+      "password": "kon",
+      "token": "token-kon-1734606551383",
+      "savedArticles": []
+    }
   ]
 }
